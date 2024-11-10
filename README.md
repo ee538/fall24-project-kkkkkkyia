@@ -242,7 +242,9 @@ Time taken by function: 2 ms
 ```
 
 - What is the runtime of your algorithm? 
+The runtime complexity is O(n * L), where n is the number of locations and L is the average length of the location names. The loop iterates over all n locations, and for each location, convert it to lowercase and check if it starts with the given prefix, both of which take O(L) time.
 - (Optional) Can you do it faster than `O(n)`?
+It is not possible to achieve a better time complexity for this algorithm in the current setup without additional preprocessing. Even with a more advanced data structure like a Trie or Sorted Data with Binary Search, which would give the complexity less than O(n) for prefix search, it still requires an initial preprocessing time. Thus, it is difficult to do better than O(n) for a single query unless pre-processing the data into a more efficient structure for multiple queries.
 
 ## Item 2-1: Find the place's coordinates in the Map (Phase 1)
 
