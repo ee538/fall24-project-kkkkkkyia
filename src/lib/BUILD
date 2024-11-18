@@ -6,6 +6,7 @@ cc_library(
     hdrs = ["trojanmap.h"],
     data = ["data.csv"],
     visibility = ["//visibility:public"],
+    copts = ["-std=c++17"],  # Enable C++17
 )
 
 cc_library(
