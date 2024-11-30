@@ -139,6 +139,27 @@ void MapUI::PrintMenu() {
         "**************************************************************\n";
     std::cout << menu << std::endl;
     // fill in here
+    std::string regex_str;
+    std::cout << "Please enter a regular expression to search for locations: ";
+    std::getline(std::cin, regex_str);
+
+    try {
+        std::regex location_regex(regex_str); // Compile the regular expression
+        auto matched_locations = map.GetLocationRegex(location_regex);
+
+        if (matched_locations.empty()) {
+            std::cout << "No locations match the given regular expression." << std::endl;
+        } else {
+            std::cout << "Matched locations:" << std::endl;
+            for (const auto& location : matched_locations) {
+                std::cout << " - ID: " << location << std::endl;
+            }
+        }
+    } catch (const std::regex_error& e) {
+        std::cerr << "Error: Invalid regular expression. " << e.what() << std::endl;
+    }
+
+    std::cout << "**************************************************************\n";
     PrintMenu();
     break;
   }

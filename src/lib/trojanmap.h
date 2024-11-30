@@ -156,6 +156,50 @@ class TrojanMap {
   // Takes in a vector of queries. Each query consists of a pair: <tank_capacity, [source, destination]>.
   // Returns the result of each query in a vector.
   std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::string>>> &q);
+  // genetic algorithm
+  std::pair<double, std::vector<std::string>> TravelingTrojan_GeneticAlgorithm(
+    const std::vector<std::string> &location_ids, int population_size, int generations, double mutation_rate);
+  std::vector<std::string> GenerateRandomPath(const std::vector<std::string> &nodes);
+  void MutatePath(std::vector<std::string> &path);
+  std::vector<std::string> Crossover(const std::vector<std::string> &parent1, const std::vector<std::string> &parent2);
+
+
+ private:
+  class UnionFind {
+   public:
+    std::unordered_map<std::string, std::string> parent;
+    std::unordered_map<std::string, int> rank;
+
+    void makeSet(const std::string& node) {
+        if (parent.find(node) == parent.end()) {
+            parent[node] = node;
+            rank[node] = 0;
+        }
+    }
+
+    std::string find(const std::string& node) {
+        if (parent[node] != node) {
+            parent[node] = find(parent[node]);
+        }
+        return parent[node];
+    }
+
+    void unionSet(const std::string& node1, const std::string& node2) {
+        std::string root1 = find(node1);
+        std::string root2 = find(node2);
+        if (root1 != root2) {
+            if (rank[root1] > rank[root2]) {
+                parent[root2] = root1;
+            } else if (rank[root1] < rank[root2]) {
+                parent[root1] = root2;
+            } else {
+                parent[root2] = root1;
+                rank[root1]++;
+            }
+        }
+    }
+};
+
 
   //----------------------------------------------------- User-defined functions
 };
