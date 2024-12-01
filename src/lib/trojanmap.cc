@@ -477,6 +477,19 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
   double min_distance = std::numeric_limits<double>::infinity();
   std::vector<std::string> best_path;
 
+  // Input validation
+  for (const auto &id : location_ids) {
+    if (data.find(id) == data.end()) {
+      return {0, {}}; // Invalid node, return empty result
+    }
+  }
+  // Base case for single node
+  if (location_ids.size() == 1) {
+    records.first = 0.0;
+    records.second.push_back(location_ids);
+    return records;
+  }
+
   // Generate all permutations of location_ids, starting from the second element
   std::sort(location_ids.begin() + 1, location_ids.end());
   do {
@@ -508,12 +521,26 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTrojan_Backtracking(
                                     std::vector<std::string> location_ids) {
   std::pair<double, std::vector<std::vector<std::string>>> records;
+
   double min_distance = std::numeric_limits<double>::infinity();  // To keep track of the minimum distance found
   std::vector<std::vector<std::string>> progress;  // To store the progress
   std::vector<std::string> current_path;  // To keep track of the current path being explored
   std::unordered_set<std::string> visited;  // Set to keep track of visited locations
 
-    // Helper function for recursive backtracking
+  // Empty Input
+  if (location_ids.empty()) {
+    records.first = 0.0;
+    records.second = {};
+    return records;
+  }
+  // Base case for single node
+  if (location_ids.size() == 1) {
+    records.first = 0.0;
+    records.second.push_back(location_ids);
+    return records;
+  }
+
+  // Helper function for recursive backtracking
   std::function<void(double, std::vector<std::string>&)> backtrack;
 
   backtrack = [&](double current_distance, std::vector<std::string>& current_path) {
@@ -568,6 +595,20 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTrojan_2opt(
       std::vector<std::string> location_ids){
   std::pair<double, std::vector<std::vector<std::string>>> records;
+
+  // Input validation
+  for (const auto &id : location_ids) {
+    if (data.find(id) == data.end()) {
+      return {0, {}}; // Invalid node, return empty result
+    }
+  }
+  // Base case for single node
+  if (location_ids.size() == 1) {
+    records.first = 0.0;
+    records.second.push_back(location_ids);
+    return records;
+  }
+
   // Create an initial path using a greedy approach
   std::vector<std::string> best_path;
   std::unordered_set<std::string> visited; // Return to the start point
@@ -634,37 +675,60 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTrojan_3opt(
       std::vector<std::string> location_ids){
   std::pair<double, std::vector<std::vector<std::string>>> records;
-  double best_distance = CalculatePathLength(location_ids);
-  std::vector<std::string> best_path = location_ids;
-  best_path.push_back(location_ids[0]); // Return to the start point
 
+  // Empty Input
+  if (location_ids.empty()) {
+    records.first = 0.0;
+    records.second = {};
+    return records;
+  }
+  // Base case for single node
+  if (location_ids.size() == 1) {
+    records.first = 0.0;
+    records.second.push_back(location_ids);
+    return records;
+  }
+
+  // Initialize the path as a closed loop
+  std::vector<std::string> best_path = location_ids;
+  best_path.push_back(location_ids[0]);  // Return to the start point
+  double best_distance = CalculatePathLength(best_path);
+  records.second.push_back(best_path);  // Record the initial path
+
+  // Apply 3-opt optimization
   bool improvement = true;
-  while (improvement){
+  int max_iterations = 1000;  // Define a limit for the number of iterations
+  int iteration_count = 0;
+
+  while (improvement && iteration_count < max_iterations) {
     improvement = false;
-    for(int i = 1; i < best_path.size() - 2; i++){
-      for(int j = i + 1; j < best_path.size() - 1; j++){
-        for(int k = 0; k < best_path.size(); k++){
-          // Apply 3-opt by trying three possible rearrangements
+    iteration_count++;
+
+    for (int i = 1; i < best_path.size() - 2; i++) {
+      for (int j = i + 1; j < best_path.size() - 1; j++) {
+        for (int k = j + 1; k < best_path.size(); k++) {
+          // Generate possible new paths from 3-opt
           std::vector<std::vector<std::string>> new_paths(4, best_path);
 
-          //1. Reverse segment between i and j
           std::reverse(new_paths[1].begin() + i, new_paths[1].begin() + j + 1);
-          //2. Reverse segment between j and k
           std::reverse(new_paths[2].begin() + j, new_paths[2].begin() + k + 1);
-          //3. Reverse segment between i and k
           std::reverse(new_paths[3].begin() + i, new_paths[3].begin() + k + 1);
 
-          for (const auto& new_path : new_paths){
+          for (auto &new_path : new_paths) {
+            // Ensure the path returns to the start node
+            if (new_path.back() != location_ids[0]) {
+              new_path.push_back(location_ids[0]);
+            }
+
             // Calculate the distance of the new path
             double new_distance = CalculatePathLength(new_path);
 
-
             // If the new path is better, update the best path and distance
-            if(new_distance < best_distance){
-              best_distance =  new_distance;
+            if (new_distance < best_distance) {
+              best_distance = new_distance;
               best_path = new_path;
               improvement = true;
-              records.second.push_back(best_path); // Record the progress
+              records.second.push_back(best_path);  // Record progress
             }
           }
         }
@@ -672,7 +736,9 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
     }
   }
 
+  // Store the final best path and distance
   records.first = best_distance;
+  records.second.push_back(best_path);
   return records;
 }
 

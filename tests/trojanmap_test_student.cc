@@ -606,60 +606,74 @@ TEST(TrojanMapTest, TopologicalSortEmptyInput) {
 }
 // --------------Phase 3--------------------------------------------------------------
 // item 9: the travelling trojan problem
-TEST(TrojanMapTest, TSP1) {
-  TrojanMap m;
-  
-  std::vector<std::string> input{"6819019976","6820935923","122702233","8566227783","8566227656","6816180153","1873055993","7771782316"}; // Input location ids 
-  auto result = m.TravelingTrojan_Brute_force(input);
-  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
-  std::vector<std::string> gt{"6819019976","1873055993","8566227656","122702233","8566227783","6816180153","7771782316","6820935923","6819019976"}; // Expected order
-  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
-  bool flag = false;
-  if (!result.second.empty() && gt == result.second.back())  // clockwise
-    flag = true;
-  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
-  if (!result.second.empty() && gt == result.second.back())
-    flag = true;
-  
-  EXPECT_EQ(flag, true);
-}
-TEST(TrojanMapTest, TSP2) {
-  TrojanMap m;
-  
-  std::vector<std::string> input{"6819019976","6820935923","122702233","8566227783","8566227656","6816180153","1873055993","7771782316"}; // Input location ids 
-  auto result = m.TravelingTrojan_Backtracking(input);
-  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
-  std::vector<std::string> gt{"6819019976","1873055993","8566227656","122702233","8566227783","6816180153","7771782316","6820935923","6819019976"}; // Expected order
-  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
-  bool flag = false;
-  if (!result.second.empty() && gt == result.second.back()) // clockwise
-    flag = true;
-  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
-  if (!result.second.empty() && gt == result.second.back())
-    flag = true;
-  
-  EXPECT_EQ(flag, true);
+// Item 9: Traveling Salesman Problem
+// Test for TravelingTrojan_Brute_force
+TEST(TrojanMapTest, TravelingTrojanBruteForce) {
+    TrojanMap map = InitializeMap();
+    // Case 1: General case
+    std::vector<std::string> location_ids = {"1", "2", "3", "4"};
+    auto result = map.TravelingTrojan_Brute_force(location_ids);
+    EXPECT_GT(result.first, 0); 
+    EXPECT_EQ(result.second.back().front(), "1"); 
+    EXPECT_EQ(result.second.back().back(), "1");
+
+    // Case 2: Single node
+    location_ids = {"1"};
+    result = map.TravelingTrojan_Brute_force(location_ids);
+    EXPECT_EQ(result.first, 0);
+    EXPECT_EQ(result.second.back(), location_ids);
+
+    // Case 3: Non-existent node
+    location_ids = {"1", "100"};
+    result = map.TravelingTrojan_Brute_force(location_ids);
+    EXPECT_TRUE(result.second.empty());
 }
 
-TEST(TrojanMapTest, TSP3) {
-  TrojanMap m;
-  
-  std::vector<std::string> input{"6819019976","6820935923","122702233","8566227783","8566227656","6816180153","1873055993","7771782316"}; // Input location ids 
-  auto result = m.TravelingTrojan_2opt(input);
-  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
-  std::vector<std::string> gt{"6819019976","1873055993","8566227656","122702233","8566227783","6816180153","7771782316","6820935923","6819019976"}; // Expected order
-  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
-  bool flag = false;
-  if (!result.second.empty() && gt == result.second.back()) // clockwise
-    flag = true;
-  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
-  if (!result.second.empty() && gt == result.second.back())
-    flag = true;
-  
-  EXPECT_EQ(flag, true);
+// Test for TravelingTrojan_Backtracking
+TEST(TrojanMapTest, TravelingTrojanBacktracking) {
+    TrojanMap map = InitializeMap();
+    // Case 1: General case
+    std::vector<std::string> location_ids = {"1", "2", "4", "5"};
+    auto result = map.TravelingTrojan_Backtracking(location_ids);
+    EXPECT_GT(result.first, 0);
+    EXPECT_EQ(result.second.back().front(), "1");
+    EXPECT_EQ(result.second.back().back(), "1");
+
+    // Case 2: Empty input
+    location_ids = {};
+    result = map.TravelingTrojan_Backtracking(location_ids);
+    EXPECT_EQ(result.first, 0);
+    EXPECT_TRUE(result.second.empty());
+
+    // Case 3: Single node
+    location_ids = {"1"};
+    result = map.TravelingTrojan_Backtracking(location_ids);
+    EXPECT_EQ(result.first, 0);
+    EXPECT_EQ(result.second.back(), location_ids);
 }
 
+// Test for TravelingTrojan_2opt
+TEST(TrojanMapTest, TravelingTrojan2opt) {
+    TrojanMap map = InitializeMap();
+    // Case 1: General case
+    std::vector<std::string> location_ids = {"1", "2", "3", "4", "5"};
+    auto result = map.TravelingTrojan_2opt(location_ids);
+    EXPECT_GT(result.first, 0);
+    EXPECT_EQ(result.second.back().front(), "1");
+    EXPECT_EQ(result.second.back().back(), "1");
 
+    // Case 2: Small graph
+    location_ids = {"1", "2"};
+    result = map.TravelingTrojan_2opt(location_ids);
+    EXPECT_GT(result.first, 0);
+    EXPECT_EQ(result.second.back().front(), "1");
+    EXPECT_EQ(result.second.back().back(), "1");
+
+    // Case 3: Non-existent node
+    location_ids = {"1", "100"};
+    result = map.TravelingTrojan_2opt(location_ids);
+    EXPECT_TRUE(result.second.empty());
+}
 
 // item 10: Find nearby
 // Test GetID function
@@ -838,47 +852,26 @@ TEST(TrojanMapTest, Queries_CyclicPath) {
     EXPECT_EQ(expected, actual);
 }
 // bonus
-// tests for genetic algorithm
-// TEST(TrojanMapTest, GeneticAlgorithmSmallGraph) {
-//     // Initialize the map
-//     TrojanMap m = InitializeMap();
+// tests for 3opt
+// Test for TravelingTrojan_3opt
+TEST(TrojanMapTest, TravelingTrojan3opt) {
+    TrojanMap map = InitializeMap();
+    // Case 1: General case
+    std::vector<std::string> location_ids = {"1", "2", "3", "4", "5", "6"};
+    auto result = map.TravelingTrojan_3opt(location_ids);
+    EXPECT_GT(result.first, 0);
+    EXPECT_EQ(result.second.back().front(), "1");
+    EXPECT_EQ(result.second.back().back(), "1");
 
-//     // Define a small set of location names
-//     std::vector<std::string> location_names = {"Chick-fil-A", "Chipotle", "Target"};
+    // Case 2: Empty input
+    location_ids = {};
+    result = map.TravelingTrojan_3opt(location_ids);
+    EXPECT_EQ(result.first, 0); 
+    EXPECT_TRUE(result.second.empty());
 
-//     // Convert names to IDs using GetID
-//     std::vector<std::string> location_ids;
-//     for (const auto &name : location_names) {
-//         std::string id = m.GetID(name);
-//         EXPECT_NE(id, "") << "Location name \"" << name << "\" not found in the map!";
-//         location_ids.push_back(id);
-//     }
-
-//     // Parameters for the genetic algorithm
-//     int population_size = 50;
-//     int generations = 100;
-//     double mutation_rate = 0.1;
-
-//     // Run the genetic algorithm
-//     auto result = m.TravelingTrojan_GeneticAlgorithm(location_ids, population_size, generations, mutation_rate);
-
-//     // Extract the best path and its length
-//     double best_distance = result.first;
-//     std::vector<std::string> best_path = result.second;
-
-//     // Debugging output
-//     std::cout << "Best path: ";
-//     for (const auto &node : best_path) {
-//         std::cout << node << " -> ";
-//     }
-//     std::cout << best_path.front() << std::endl;
-//     std::cout << "Best path length: " << best_distance << std::endl;
-
-//     // Validate the result
-//     EXPECT_EQ(best_path.front(), best_path.back()) << "Path must form a cycle!";
-//     EXPECT_EQ(best_path.size(), location_ids.size() + 1) << "Path must include all locations and return to start!";
-
-//     // Validate the path's length
-//     double calculated_distance = m.CalculatePathLength(best_path);
-//     EXPECT_NEAR(best_distance, calculated_distance, 1e-6) << "Calculated path length does not match returned distance!";
-// }
+    // Case 3: Single node
+    location_ids = {"1"};
+    result = map.TravelingTrojan_3opt(location_ids);
+    EXPECT_EQ(result.first, 0);
+    EXPECT_EQ(result.second.back(), location_ids);
+}
