@@ -457,6 +457,67 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
   std::reverse(path.begin(),path.end());
   return path;
 }
+/**
+ * CalculateShortestPath_Bellman_Ford_Optimized: Given 2 locations, return the shortest
+ * path which is a list of id. This version adds optimization to terminate early if no change occurs.
+ *
+ * @param  {std::string} location1_name     : start
+ * @param  {std::string} location2_name     : goal
+ * @return {std::vector<std::string>}       : path
+ */
+std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford_Optimized(
+    std::string location1_name, std::string location2_name) {
+  std::vector<std::string> path;
+  std::string start_id = GetID(location1_name);
+  std::string end_id = GetID(location2_name);
+
+  if (start_id.empty() || end_id.empty()) return path; // Invalid input
+
+  // Distance map to store the minimum distance to each node
+  std::unordered_map<std::string, double> distance;
+  // Parent map to reconstruct the path
+  std::unordered_map<std::string, std::string> parent;
+
+  // Initialize distances to infinity, except for the starting node
+  for (auto &pair : data) {
+    distance[pair.first] = std::numeric_limits<double>::infinity();
+  }
+  distance[start_id] = 0;
+
+  int n = data.size();
+
+  // Relax all edges up to (n - 1) times
+  for (int i = 0; i < n - 1; ++i) {
+    bool updated = false;
+
+    for (auto &pair : data) {
+      std::string u = pair.first;
+      if (distance[u] == std::numeric_limits<double>::infinity()) continue;
+      for (auto &v : data[u].neighbors) {
+        double new_dist = distance[u] + CalculateDistance(u, v);
+
+        if (new_dist < distance[v]) {
+          distance[v] = new_dist;
+          parent[v] = u;
+          updated = true;
+        }
+      }
+    }
+
+    if (!updated) break; // Early termination if no update in this iteration
+  }
+
+  // Check for negative weight cycles (not needed here since we don't have negative weights)
+
+  // Reconstruct the path from end to start
+  if (distance[end_id] == std::numeric_limits<double>::infinity()) return {};
+
+  for (std::string at = end_id; at != ""; at = parent[at]) {
+    path.push_back(at);
+  }
+  std::reverse(path.begin(), path.end());
+  return path;
+}
 
 /**
  * Traveling salesman problem: Given a list of locations, return the shortest
