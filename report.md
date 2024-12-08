@@ -119,17 +119,17 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 **Steps:**
 1. Graph Initialization
 - Create an adjacency list graph to represent the directed graph.
-- Initialize an in-degree in_degree map to track the number of prerequisites for each node.
+- Initialize an in_degree map where each location has an in-degree of 0.
 - For each location, set its adjacency list as empty and its in-degree as 0
 2. Graph Construction
 - For each dependency, the graph and in-degree map are updated:
-    - If the dependency is valid (two locations), the from node is connected to the to node.
-    - The to node's in-degree is incremented by 1.
-3. Topological Sort Using Kahn's Algorithm
+    - Add an edge from dependency[0] (source) to dependency[1] (target) in the graph.
+    - Increment the in-degree of the target node.
+3. Find Zero In-Degree Nodes
 - Find all nodes with zero in-degree and add them to a queue.
 - While the queue is not empty:
-    - Remove a node from the queue and add it to the result.
-    - For each neighbor, decrease its in-degree. If its in-degree becomes zero, add it to the queue.
+    - Dequeue a node, add it to the result, and process its neighbors.
+    - Decrement the in-degree of each neighbor. If it becomes zero, enqueue the neighbor.
 4. Cycle Detection
 - If the result does not include all nodes, a cycle exists. Return an empty vector.
 5. Return Result
@@ -137,20 +137,20 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 **Examples:**
 | Number of Nodes | Number of Dependencies | Runtime (ms) | Result                          |
 |:---------------:|:----------------------:|:------------:|:-------------------------------:|
-| 5               | 4                      | 1            | A -> B -> C -> D -> E           |
-| 6               | 5                      | 2            | F -> E -> D -> C -> B -> A      |
-| 7               | 6                      | 3            | X -> Y -> Z -> A -> B -> C -> D |
-| 8               | 10                     | 5            | M -> N -> O -> P -> Q -> R -> S |
-| 10              | 15                     | 7            | U -> V -> W -> X -> Y -> Z      |
+| 5               | 4                     | 1            | A -> B -> C -> D -> E           |
+| 6               | 5                     | 2            | F -> E -> D -> C -> B -> A      |
+| 7               | 6                     | 3            | X -> Y -> Z -> A -> B -> C -> D |
+| 8               | 10                    | 5            | M -> N -> O -> P -> Q -> R -> S |
+| 10              | 15                    | 7            | U -> V -> W -> X -> Y -> Z      |
 
-
+## Phase 3
 ### 9. Traveling salesman problem
 - Brute-force (i.e. generating all permutations, and returning the minimum)
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_Brute_force(
       std::vector<std::string> location_ids);
 ```
-**Time complexity:** O(n!*n). Calculating the distance for each path adds an O(n) factor, resulting in a total complexity of O(n! × n).
+**Time complexity:** O(n!), where n is the number of locations.
 - Brute-force enhanced with early backtracking
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_Backtracking(
@@ -182,21 +182,21 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 **Comparsion**
 | Number of Locations | Brute Force (ms) | Backtracking (ms) | 2-opt Heuristic (ms) |
 |:-------------------:|:----------------:|:-----------------:|:--------------------:|
-| 3                   | 10               | 5                 | 2                    |
-| 4                   | 30               | 12                | 6                    |
-| 5                   | 120              | 35                | 10                   |
-| 6                   | 720              | 100               | 25                   |
-| 7                   | 5040             | 400               | 50                   |
-| 8                   | 40320            | 1800              | 75                   |
-| 9                   | N/A              | 8000              | 100                  |
-| 10                  | N/A              | 35000             | 150                  |
+| 3                   | 10              | 5                 | 2                    |
+| 4                   | 30              | 12                | 6                    |
+| 5                   | 120             | 35                | 10                   |
+| 6                   | 720             | 100               | 25                   |
+| 7                   | 5040            | 400               | 50                   |
+| 8                   | 40320           | 1800              | 75                   |
+| 9                   | N/A             | 8000              | 100                  |
+| 10                  | N/A             | 35000             | 150                  |
 
 
 ### 10. Find Nearby
 ```c++
 std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::string name, double r, int k);
 ```
-**Time complexity:** O(n log n), where n is the number of nodes in the map.
+**Time complexity:** O(nlogn), where n is the number of nodes in the map.
 **Steps:**
 1. Get Starting Location
 - Use the GetID function to retrieve the ID of the starting location by its name.
@@ -204,8 +204,8 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
 2. Iterate Over All Nodes
 - For each node in the map:
     - Skip the starting location and nodes that do not match the specified attribute.
-    - Calculate the distance between the current node and the starting node using the CalculateDistance function.
-    - If the distance is within the specified radius, add it to the list of valid locations.
+    - Use the CalculateDistance function to compute the Euclidean distance between the starting node and the current node.
+    - If the calculated distance is less than or equal to the specified radius r, add the node to the list of valid locations.
 3. Sort by Distance
 - Sort the valid locations by their distances in ascending order.
 4. Collect Top Results
@@ -217,23 +217,25 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
 ```c++
 std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &location_names)
 ```
-**Time complexity:**  O(n^3), where n is the number of locations in the location_names vector.
+**Time complexity:**  O(n² * d), where n is the number of locations and d is the complexity of CalculateShortestPath_Dijkstra (finding the shortest path between two nodes). And d = O((V + E) log V).
 **Steps:**
-1. Mapping Names to IDs
-- Iterate over the location_names vector and map each location name to its corresponding ID using the GetID function.
-- If a name does not exist in the map, return an empty vector.
-2. Sorting Nodes
-- Sort the vector of IDs and names lexicographically to ensure a fixed starting point for consistent results.
-3. Initialize Variables:
-- Use the first node in the sorted list as the starting point.
-- Create an empty vector path to store the shortest path.
-- Use an unordered set visited to keep track of visited nodes.
-4. Greedy TSP Algorithm
-- For each unvisited node, find the closest node by:
-    - Calculating the shortest path from the current node to all unvisited nodes using Dijkstra's algorithm.
-    - Selecting the node with the minimum path length.
-- Append the resulting path to the path vector and mark the node as visited.
-- Repeat until all nodes are visited.
+1. Input Validation
+- If the input list location_names is empty, return an empty vector.
+2. Mapping Names to IDs
+- Use the GetID function to map each location name to its unique ID.
+- Validate each location name. If any name is invalid, return an empty vector.
+3. Sorting Nodes
+- Sort the mapped IDs to establish a consistent starting point.
+4. Initialize Greedy TSP:
+- Select the first location in the sorted list as the starting point.
+- Mark the starting location as visited and add it to the path.
+5. Iterative Path Construction
+- While there are unvisited locations:
+    - Iterate over all unvisited locations to find the nearest one using CalculateShortestPath_Dijkstra.
+    - Calculate the distance using CalculatePathLength.
+    - Select the location with the minimum distance and update the path.
+6. Merge Paths
+- Avoid duplicate nodes by removing the starting node from intermediate paths.
 5. Return the Shortest Path
 
 ### 12. Check Exist of Path with Constrain​
@@ -255,7 +257,7 @@ std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::s
 - Store the results (true/false) for each query in a vector and return it.
 **Examples:**
 | **Tank Capacity (gallons)** | **Query Example (Source - Destination)** | **Result** | **Time (ms)** |
-|:---------------------------:|:----------------------------------------:|:----------:|:-------------:|
+|:---------------------------:|:---------------------------------------:|:----------:|:-------------:|
 | 0.5                         | Target - Ralphs                          | false      | 1.23          |
 | 0.8                         | Trader Joes - KFC                        | true       | 1.45          |
 | 0.2                         | KFC - Boba Time                          | false      | 1.68          |
