@@ -39,11 +39,12 @@
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
-Time complexity: O(m*n) where n is the number of nodes in the map and m is the average length of node names
-Steps:
+Time complexity: O(m*n), where n is the number of nodes in the map and m is the average length of node names
+**Steps:**
 1. Iterate over data
 2. Convert strings to lowercase
 3. Substring comparison
+**Result of the output**
 ![](output_img/autocomplete.png)
 
 # 2. Find the location
@@ -51,8 +52,8 @@ Steps:
 ```c++
 std::pair<double, double> GetPosition(std::string name);
 ```
-Time complexity : O(m*n) where n is the number of nodes in the map and m is the average length of node names
-Steps:
+Time complexity : O(m*n), where n is the number of nodes in the map and m is the average length of node names
+**Steps:**
 1. Initialize the result
 2. Iterate over the map
 3. Compare the node name
@@ -63,7 +64,7 @@ Steps:
 int CalculateEditDistance(std::string name1, std::string name2);
 ```
 Time complexity: O(m*n) where n is the number of nodes in the map and m is the average length of node names
-Steps:
+**Steps:**
 1. Initialization
 - Create a 2D matrix dp of size (m+1) * (n+1) to store the edit distance for each substring combination
 2. Base Case Setup
@@ -77,3 +78,34 @@ Steps:
     - Replace a character: dp[i-1][j-1] + 1
 4. Return the result
 
+**Example table for inputs "ralphs" and "rolphs"**
+|      | Base Case  | r   | o   | l   | p   | h   | s   |
+|:----:|:----------:|:---:|:---:|:---:|:---:|:---:|:---:|
+|      | 0          | 1   | 2   | 3   | 4   | 5   | 6   |
+|  r   | 1          | 0   | 1   | 2   | 3   | 4   | 5   |
+|  a   | 2          | 1   | 1   | 2   | 3   | 4   | 5   |
+|  l   | 3          | 2   | 2   | 1   | 2   | 3   | 4   |
+|  p   | 4          | 3   | 3   | 2   | 1   | 2   | 3   |
+|  h   | 5          | 4   | 4   | 3   | 2   | 1   | 2   |
+|  s   | 6          | 5   | 5   | 4   | 3   | 2   | 1   |
+**Result of the output**
+| Output | Map |
+| :---: | :---: |
+| ![](output_img/findthelocation_result.png) | ![](output_img/findthelocation_map.png)
+
+## Phase 2
+# 3. Find all location categories
+```c++
+std::vector<std::string> GetAllCategories();
+```
+Time Complexity: O(N*M+K*logK), where N is the number of locations, M is the average number of categories per location and K is the total number of unique categories
+**Steps:**
+1. Input Dataset Traversal
+2. Unique Categories Extraction
+3. Conversion to Vector
+4. Sorting
+5. Return the Result
+**Result of the output**
+![](output_img/allcategories.png)
+
+# 4. Get all Locations of a Category
