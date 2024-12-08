@@ -39,11 +39,8 @@
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
-<<<<<<< HEAD
 Time complexity: O(m*n), where n is the number of nodes in the map and m is the average length of node names
-=======
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
->>>>>>> f748b0e60ff24dd427641ef070acba05350f8b93
 **Steps:**
 1. Iterate over data
 2. Convert strings to lowercase
@@ -56,11 +53,7 @@ Time complexity: O(m*n), where n is the number of nodes in the map and m is the 
 ```c++
 std::pair<double, double> GetPosition(std::string name);
 ```
-<<<<<<< HEAD
-Time complexity : O(m*n), where n is the number of nodes in the map and m is the average length of node names
-=======
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
->>>>>>> f748b0e60ff24dd427641ef070acba05350f8b93
 **Steps:**
 1. Initialize the result
 2. Iterate over the map
@@ -71,11 +64,7 @@ Time complexity : O(m*n), where n is the number of nodes in the map and m is the
 ```c++
 int CalculateEditDistance(std::string name1, std::string name2);
 ```
-<<<<<<< HEAD
-Time complexity: O(m*n) where n is the number of nodes in the map and m is the average length of node names
-=======
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
->>>>>>> f748b0e60ff24dd427641ef070acba05350f8b93
 **Steps:**
 1. Initialization
 - Create a 2D matrix dp of size (m+1) * (n+1) to store the edit distance for each substring combination
@@ -90,7 +79,6 @@ Time complexity: O(m*n) where n is the number of nodes in the map and m is the a
     - Replace a character: dp[i-1][j-1] + 1
 4. Return the result
 
-<<<<<<< HEAD
 **Example table for inputs "ralphs" and "rolphs"**
 |      | Base Case  | r   | o   | l   | p   | h   | s   |
 |:----:|:----------:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -111,7 +99,7 @@ Time complexity: O(m*n) where n is the number of nodes in the map and m is the a
 ```c++
 std::vector<std::string> GetAllCategories();
 ```
-Time Complexity: O(N*M+K*logK), where N is the number of locations, M is the average number of categories per location and K is the total number of unique categories
+**Time Complexity:** O(N*M+K*logK), where N is the number of locations, M is the average number of categories per location and K is the total number of unique categories
 **Steps:**
 1. Input Dataset Traversal
 2. Unique Categories Extraction
@@ -122,7 +110,13 @@ Time Complexity: O(N*M+K*logK), where N is the number of locations, M is the ave
 ![](output_img/allcategories.png)
 
 # 4. Get all Locations of a Category
-=======
+**Time complexity:** O(N*M*L), where N is number of nodes, M is average number of attributes per node and L is average length of attribude string
+**Steps:**
+1. Convert Input Category to Lowercase
+2. Iterate through Dataset
+3. Match Attributes Case-Insensitively
+4. Return ids of locations matched with the category
+**Result of the output**
 ### 7. Cycle Detection​
 ```c++
 bool CycleDetection(std::vector<double> &square);
@@ -396,4 +390,3 @@ std::vector<std::string> TrojanMap::GenerateRandomPath(const std::vector<std::st
 - Ensure the best path forms a cycle by adding the starting location to the end of the path.
 - Return the Result
 8. Return the shortest distance and the corresponding path.
->>>>>>> f748b0e60ff24dd427641ef070acba05350f8b93
