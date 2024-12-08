@@ -1327,9 +1327,13 @@ std::vector<std::string> TrojanMap::Crossover(const std::vector<std::string> &pa
 
     return child;
 }
+
 std::pair<double, std::vector<std::string>> TrojanMap::TravelingTrojan_GeneticAlgorithm(
     const std::vector<std::string> &location_names, int population_size, int generations, double mutation_rate) {
     
+    if (location_names.empty()) {
+        return {0.0, {}};  // Return zero distance and an empty path
+    }
     std::vector<std::string> location_ids;
     
     // Convert location names to IDs using GetID
@@ -1372,7 +1376,7 @@ std::pair<double, std::vector<std::string>> TrojanMap::TravelingTrojan_GeneticAl
             best_solution = fitness_population[0];
         }
 
-        // Debug: Print generation information
+        // Print generation information
         std::cout << "Generation " << gen + 1 << ": Best distance = " << best_solution.first << std::endl;
 
         // Step 2: Selection (top 50%)

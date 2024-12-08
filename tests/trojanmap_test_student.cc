@@ -875,3 +875,43 @@ TEST(TrojanMapTest, TravelingTrojan3opt) {
     EXPECT_EQ(result.first, 0);
     EXPECT_EQ(result.second.back(), location_ids);
 }
+// test for genetic algorithm
+TEST(TrojanMapTest, SmallDataset) {
+    TrojanMap map;
+    map.CreateGraphFromCSVFile();
+
+    std::vector<std::string> location_names = {"Ralphs", "KFC", "Chick-fil-A"};
+
+    auto result = map.TravelingTrojan_GeneticAlgorithm(location_names, 30, 50, 0.1);
+
+    // Assertions
+    EXPECT_FALSE(result.second.empty());  // Path should not be empty
+    EXPECT_EQ(result.second.size(), location_names.size() + 1);  // Check cycle (start = end)
+    EXPECT_EQ(result.second.front(), result.second.back());  // Ensure it's a cycle
+}
+TEST(TrojanMapTest, EmptyInput) {
+    TrojanMap map;
+    map.CreateGraphFromCSVFile();
+
+    std::vector<std::string> location_names = {};
+
+    auto result = map.TravelingTrojan_GeneticAlgorithm(location_names, 30, 50, 0.1);
+
+    // Assertions
+    EXPECT_TRUE(result.second.empty());  // Path should be empty
+    EXPECT_EQ(result.first, 0);  // Distance should be 0 for no locations
+}
+TEST(TrojanMapTest, LargePopulationAndGenerations) {
+    TrojanMap map;
+    map.CreateGraphFromCSVFile();
+
+    std::vector<std::string> location_names = {"Ralphs", "KFC", "Chick-fil-A", "Target"};
+
+    auto result = map.TravelingTrojan_GeneticAlgorithm(location_names, 100, 200, 0.2);
+
+    // Assertions
+    EXPECT_FALSE(result.second.empty());  // Path should not be empty
+    EXPECT_EQ(result.second.size(), location_names.size() + 1);  // Check cycle (start = end)
+    EXPECT_EQ(result.second.front(), result.second.back());  // Ensure it's a cycle
+    EXPECT_GT(result.first, 0);  // Distance should be greater than 0
+}
