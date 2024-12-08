@@ -39,8 +39,8 @@
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
-Time complexity: O(m*n) where n is the number of nodes in the map and m is the average length of node names
-Steps:
+**Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
+**Steps:**
 1. Iterate over data
 2. Convert strings to lowercase
 3. Substring comparison
@@ -51,8 +51,8 @@ Steps:
 ```c++
 std::pair<double, double> GetPosition(std::string name);
 ```
-Time complexity : O(m*n) where n is the number of nodes in the map and m is the average length of node names
-Steps:
+**Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
+**Steps:**
 1. Initialize the result
 2. Iterate over the map
 3. Compare the node name
@@ -62,8 +62,8 @@ Steps:
 ```c++
 int CalculateEditDistance(std::string name1, std::string name2);
 ```
-Time complexity: O(m*n) where n is the number of nodes in the map and m is the average length of node names
-Steps:
+**Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
+**Steps:**
 1. Initialization
 - Create a 2D matrix dp of size (m+1) * (n+1) to store the edit distance for each substring combination
 2. Base Case Setup
