@@ -2,7 +2,7 @@
 
 <center><h1>Trojan Map Report</h1></center>
 
-<center><h3>Team Member: Yuhui Wu(USC ID:6466358591)  Junfei Huang(USC ID:5555112745)</h3></center>
+<center><h3>Team Member: Yuhui Wu(USC ID:6466358591)  Junfei Huang(USC ID:8035067981)</h3></center>
 
 ### Member Functions & Variables
 | Name                                             | Description                                                  |
