@@ -82,6 +82,7 @@ int CalculateEditDistance(std::string name1, std::string name2);
 bool CycleDetection(std::vector<double> &square);
 ```
 **Time complexity:** O(n * e), where n is the number of nodes in the subgraph and e is the average number of neighbors per node.
+
 **Steps:**
 1. Build Adjacency List
 - Iterate through all nodes in the subgraph.
@@ -117,6 +118,7 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
                                             std::vector<std::vector<std::string>> &dependencies);
 ```
 **Time complexity:** O(n + m), where n is the number of locations and m is the number of dependencies.
+
 **Steps:**
 1. Graph Initialization
 - Create an adjacency list graph to represent the directed graph.
@@ -165,6 +167,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
       std::vector<std::string> location_ids);
 ```
 **Time complexity:** O(k*n^2), where k is the number of iterations until no further improvements are possible, and n is the number of locations.
+
 **Steps (Applicable for All three Algorithms):**
 1. Input Validation
 - Ensure all input locations exist in the map.
