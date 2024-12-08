@@ -101,6 +101,7 @@ bool CycleDetection(std::vector<double> &square);
     - If a cycle is detected, output the cycle path and return true.
 4. Return Result
 - Return true if a cycle is found; otherwise, return false.
+
 **Examples:**
 | Example | Nodes in Subgraph | Edges in Subgraph | Square Coordinates (left, right, upper, lower) | Cycle Detected | Runtime (ms) |
 |:-------:|:-----------------:|:-----------------:|:----------------------------------------------:|:--------------:|:------------:|
@@ -134,6 +135,7 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 - If the result does not include all nodes, a cycle exists. Return an empty vector.
 5. Return Result
 - Return the sorted order of nodes if a valid topological sort exists.
+
 **Examples:**
 | Number of Nodes | Number of Dependencies | Runtime (ms) | Result                          |
 |:---------------:|:----------------------:|:------------:|:-------------------------------:|
@@ -179,6 +181,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 - 2-opt: Refine the path by reversing segments and re-evaluating the total distance.
 5. Output Results
 - Return the shortest path and its distance.
+
 **Comparsion**
 | Number of Locations | Brute Force (ms) | Backtracking (ms) | 2-opt Heuristic (ms) |
 |:-------------------:|:----------------:|:-----------------:|:--------------------:|
@@ -197,6 +200,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::string name, double r, int k);
 ```
 **Time complexity:** O(nlogn), where n is the number of nodes in the map.
+
 **Steps:**
 1. Get Starting Location
 - Use the GetID function to retrieve the ID of the starting location by its name.
@@ -218,6 +222,7 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
 std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &location_names)
 ```
 **Time complexity:**  O(n² * d), where n is the number of locations and d is the complexity of CalculateShortestPath_Dijkstra (finding the shortest path between two nodes). And d = O((V + E) log V).
+
 **Steps:**
 1. Input Validation
 - If the input list location_names is empty, return an empty vector.
@@ -243,6 +248,7 @@ std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &locatio
 std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::string>>> &q);
 ```
 **Time complexity:** O(|E|log|E|+|Q|*|V|) where |E| is the number of edges in the graph, |Q| is the number of queries and |V| is the number of nodes in the graph.
+
 **Steps:**
 1. Extract Edges
 - Iterate over each node and its neighbors to extract unique edges with their distances.
@@ -255,6 +261,7 @@ std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::s
 - Use Union-Find to check if the source and destination are connected.
 4. Return Results
 - Store the results (true/false) for each query in a vector and return it.
+
 **Examples:**
 | **Tank Capacity (gallons)** | **Query Example (Source - Destination)** | **Result** | **Time (ms)** |
 |:---------------------------:|:---------------------------------------:|:----------:|:-------------:|
@@ -277,6 +284,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
       std::vector<std::string> location_ids);
 ```
 **Time complexity:** O(n^3 * k), where n is the number of locations and k is the maximum number of iterations, controlled by max_iterations.
+
 **Steps:**
 1. Input Validation
 - Check if the input vector is empty. If yes, return a result with zero distance and an empty path.
@@ -295,6 +303,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
 4. Return Results
 - Store the final best path and distance in the result.
 - Return the shortest path found and its corresponding distance.
+
 **Comparsion**
 | Number of Locations | 3-opt Runtime (ms) | Best Distance Found (miles) |
 |:-------------------:|:------------------:|:---------------------------:|
@@ -313,6 +322,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
 std::vector<std::string> TrojanMap::GenerateRandomPath(const std::vector<std::string> &nodes);
 ```
 **Time complexity:** O(g*p*(n^2+nlogp)) where g is the number of generations, p is the population size and n is the number of nodes(locations).
+
 **Steps:**
 1. Input Validation and Initialization
 - Convert location names to their corresponding IDs using GetID.
