@@ -4,7 +4,7 @@
 
 <center><h3>Team Member: Yuhui Wu(USC ID:6466358591)  Junfei Huang(USC ID:8035067981)</h3></center>
 
-### Member Functions & Variables
+# Member Functions & Variables
 | Name                                             | Description                                                  |
 | ------------------------------------------------ | ------------------------------------------------------------ |
 | **Phase 1**                                      |                                                              |
@@ -33,9 +33,9 @@
 | [.TrojanPath](#trojanpath)                       | Find the shortest path to visit all the locations            |
 | [.Queries](#queries)                             | Check connectivity with gas tank constraints using Union-Find|
 
-### Detailed Implimentation
+# Detailed Implimentation
 ## Phase 1
-# 1. Autocomplete
+### 1. Autocomplete
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
@@ -46,8 +46,8 @@ Steps:
 3. Substring comparison
 ![](output_img/autocomplete.png)
 
-# 2. Find the location
-# 2-1. Get Position
+### 2. Find the location
+### 2-1. Get Position
 ```c++
 std::pair<double, double> GetPosition(std::string name);
 ```
@@ -58,7 +58,7 @@ Steps:
 3. Compare the node name
 - For each node, the name field of the current node (iter->second.name) is compared with the input string (name)
 4. Return the results
-# 2-2. Calculate Edit Distance
+### 2-2. Calculate Edit Distance
 ```c++
 int CalculateEditDistance(std::string name1, std::string name2);
 ```
