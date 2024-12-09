@@ -126,6 +126,7 @@ std::vector<std::string> GetAllLocationsFromCategory(std::string category);
 2. Iterate through dataset
 3. Match attributes case-insensitively
 4. Return ids of locations matched with the category
+
 **Output:**
 | Output | Map |
 | :---: | :---: |
@@ -143,6 +144,7 @@ std::vector<std::string> GetLocationRegex(std::regex location);
 - Checks if the location’s name matches the given regular expression
 - If a match is found, the location’s id is added to the result vector
 4. Return the result vector containing the IDs of locations whose names matched the regular expression
+
 **Output:**
 ![](output_img/regularexpression.png)
 
@@ -178,6 +180,7 @@ std::vector<std::string> CalculateShortestPath_Bellman_Ford(std::string &locatio
 - If no updates occur during an iteration, the algorithm terminates early
 4. Path Reconstruction
 - Backtrack from the target node using the parent map
+
 **Output:**
 | Output | Map |
 | :---: | :---: |
