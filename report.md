@@ -63,6 +63,7 @@ std::pair<double, double> GetPosition(std::string name);
 3. Compare the node name
 - For each node, the name field of the current node (iter->second.name) is compared with the input string (name)
 4. Return the results
+
 ### 2-2. Calculate Edit Distance
 ```c++
 int CalculateEditDistance(std::string name1, std::string name2);
@@ -479,3 +480,21 @@ std::vector<std::string> TrojanMap::GenerateRandomPath(const std::vector<std::st
 - Ensure the best path forms a cycle by adding the starting location to the end of the path.
 - Return the Result
 8. Return the shortest distance and the corresponding path.
+
+# Conclusion
+The Trojan Map project provided a robust framework to simulate and solve complex routing and navigation problems in a realistic geographic setting. The following objectives were successfully achieved:
+- Pathfinding Algorithms: Implemented Dijkstra’s and Bellman-Ford algorithms for shortest path computations.
+- Optimization Techniques: Used genetic algorithms and local optimization methods like 2-opt and 3-opt for solving the Traveling Salesman Problem (TSP).
+- Location Queries: Implemented search functionalities such as autocomplete, regex matching, and location categorization.
+- Cycle Detection: Enabled efficient detection of cycles within a subgraph, demonstrating practical graph analysis.
+- Subgraph Operations: Provided tools to work on geographically constrained areas of the map.
+
+# Lessons Learned
+**1. Algorithm Design**
+- Greedy algorithms (e.g., 2-opt for TSP) provide a balance between computational cost and solution quality.
+- Genetic algorithms are versatile but require careful parameter tuning (e.g., population size, mutation rate) to converge effectively.
+**2. Data Structures**
+- Efficient data structures such as priority queues, hash maps, and disjoint sets are critical for scalable solutions.
+- Graph representations (adjacency lists) are essential for managing relationships between nodes.
+**3. Real-World Constraints**
+- Handling real-world datasets highlighted the need for error checking (e.g., invalid IDs or empty inputs) and robustness in the implementation.
