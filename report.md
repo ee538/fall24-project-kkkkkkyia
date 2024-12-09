@@ -44,7 +44,7 @@ The Trojan Map project is a comprehensive tool designed to model, analyze, and s
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
-Time complexity: O(m*n), where n is the number of nodes in the map and m is the average length of node names
+
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
 
 **Steps:**
