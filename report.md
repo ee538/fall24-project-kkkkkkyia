@@ -46,6 +46,7 @@ std::vector<std::string> Autocomplete(std::string name);
 ```
 Time complexity: O(m*n), where n is the number of nodes in the map and m is the average length of node names
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
+
 **Steps:**
 1. Iterate over data
 2. Convert strings to lowercase
@@ -62,6 +63,7 @@ Time complexity: O(m*n), where n is the number of nodes in the map and m is the 
 std::pair<double, double> GetPosition(std::string name);
 ```
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
+
 **Steps:**
 1. Initialize the result
 2. Iterate over the map
@@ -76,6 +78,7 @@ std::pair<double, double> GetPosition(std::string name);
 int CalculateEditDistance(std::string name1, std::string name2);
 ```
 **Time complexity:** O(m*n) where n is the number of nodes in the map and m is the average length of node names
+
 **Steps:**
 1. Initialization
 - Create a 2D matrix dp of size (m+1) * (n+1) to store the edit distance for each substring combination
@@ -114,6 +117,7 @@ int CalculateEditDistance(std::string name1, std::string name2);
 std::vector<std::string> GetAllCategories();
 ```
 **Time Complexity:** O(N*M+K*logK), where N is the number of locations, M is the average number of categories per location and K is the total number of unique categories
+
 **Steps:**
 1. Input dataset traversal
 2. Unique categories extraction
@@ -131,6 +135,7 @@ std::vector<std::string> GetAllCategories();
 std::vector<std::string> GetAllLocationsFromCategory(std::string category);
 ```
 **Time complexity:** O(N*M*L), where N is number of nodes, M is average number of attributes per node and L is average length of attribude string
+
 **Steps:**
 1. Convert input category to lowercase
 2. Iterate through dataset
@@ -149,6 +154,7 @@ std::vector<std::string> GetAllLocationsFromCategory(std::string category);
 std::vector<std::string> GetLocationRegex(std::regex location);
 ```
 **Time complexity:** O(N*L), where N is number of nodes and L is average length of attribude string
+
 **Steps:**
 1. Validation of the regular expression
 2. Dataset iteration
@@ -169,6 +175,7 @@ std::vector<std::string> CalculateShortestPath_Dijkstra(std::string &location1_n
                                                std::string &location2_name);
 ```
 **Time complexity:** O((N+E)*logN), where N is the number of nodes and E is the number of edges
+
 **Steps:**
 1. Initialization
 - Distances are set to infinity
@@ -188,6 +195,7 @@ std::vector<std::string> CalculateShortestPath_Bellman_Ford(std::string &locatio
 **Time complexity:**
 - Bellman Ford: O(N*E), where N is the number of nodes and E is the number of edges
 - Bellman Ford Optimized: O(k*E), k<=n-1, where E is the number of edges
+
 **Steps:**
 1. Initialization
 - Distances are initialized to infinity, except for the start node
