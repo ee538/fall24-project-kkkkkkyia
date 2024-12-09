@@ -48,7 +48,8 @@ Time complexity: O(m*n), where n is the number of nodes in the map and m is the 
 1. Iterate over data
 2. Convert strings to lowercase
 3. Substring comparison
-**Result of the output**
+
+**Output:**
 ![](output_img/autocomplete.png)
 
 ### 2. Find the location
@@ -94,7 +95,7 @@ int CalculateEditDistance(std::string name1, std::string name2);
 |  h   | 5          | 4   | 4   | 3   | 2   | 1   | 2   |
 |  s   | 6          | 5   | 5   | 4   | 3   | 2   | 1   |
 
-**Result of the output**
+**Output:**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/findthelocation_result.png) | ![](output_img/findthelocation_map.png)
@@ -111,7 +112,8 @@ std::vector<std::string> GetAllCategories();
 3. Conversion to vector
 4. Sorting
 5. Return the result
-**Result of the output**
+
+**Output:**
 ![](output_img/allcategories.png)
 
 ### 4. Get all Locations of a Category
@@ -124,7 +126,7 @@ std::vector<std::string> GetAllLocationsFromCategory(std::string category);
 2. Iterate through dataset
 3. Match attributes case-insensitively
 4. Return ids of locations matched with the category
-**Result of the output**
+**Output:**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/locationsincate_result.png) | ![](output_img/locationsincate_map.png)
@@ -141,7 +143,7 @@ std::vector<std::string> GetLocationRegex(std::regex location);
 - Checks if the location’s name matches the given regular expression
 - If a match is found, the location’s id is added to the result vector
 4. Return the result vector containing the IDs of locations whose names matched the regular expression
-**Result of the output**
+**Output:**
 ![](output_img/regularexpression.png)
 
 ### 6. Calculate Shortest Path
@@ -176,7 +178,7 @@ std::vector<std::string> CalculateShortestPath_Bellman_Ford(std::string &locatio
 - If no updates occur during an iteration, the algorithm terminates early
 4. Path Reconstruction
 - Backtrack from the target node using the parent map
-**Result of the output**
+**Output:**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/calculatepath_result.png) | ![](output_img/calculatepath_map.png)
@@ -218,7 +220,7 @@ bool CycleDetection(std::vector<double> &square);
 | 3                 | 2                 | (-118.286, -118.236, 34.0951, 34.0451)        | false          | 0            |
 | 5694              | 6838              | (-118.283, -118.233, 34.0735, 34.0235)        | true           | 33           |
 
-**Result of the output**
+**Output:**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/cycledetection_result.png) | ![](output_img/cycledetection_map.png)
@@ -260,7 +262,7 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 | 8               | 12                     | 0.051917     | Exposition & Halldale 1 -> Chevron 2 -> Adams & Arlington -> Figueroa & Adams -> USC Parking -> Vermont & 24th -> Twentyfirst Street Temple Church of God in Christ -> Eileen L Norris Cinema Theatre |
 | 7               | 11                     | 0.049375     | Figueroa Street & 23rd Street -> Western & Adams -> Pico & Hill -> Traveler -> Amazon Hub Locker -> Fruit and Candy -> Travelers Fountain |
 
-**Result of the output**
+**Output:**
 ![](output_img/toposort_map.png)
 
 
@@ -314,7 +316,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 | 9                   | 1074.9          | 216.496           | 2.93054              |
 | 10                  | 10668.9         | 1180.71           | 3.15054              |
 
-**Result of the output**
+**Output:**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/TSP_result.png) | ![](output_img/TSP_map.png)
@@ -341,7 +343,7 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
 5. Return Results
 - Return the vector of IDs for the top k closest locations.
 
-**Result of the output**
+**Output:**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/nearby_result.png) | ![](output_img/nearby_map.png)
@@ -372,7 +374,7 @@ std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &locatio
 - Avoid duplicate nodes by removing the starting node from intermediate paths.
 5. Return the Shortest Path
 
-**Result of the output**
+**Output:**
 ![](output_img/item11.png)
 
 ### 12. Check Exist of Path with Constrain​
@@ -407,7 +409,7 @@ std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::s
 | 4.94633                     | Vermont & Washington - Exposition & Trousdale 1               | true       | 203.867       |
 | 13.5455                     | Smoke Shop - Popeyes                                          | true       | 203.548       |
 
-**Result of the output**
+**Output:**
 ![](output_img/item12.png)
 
 ## Extra Credit 
@@ -493,8 +495,10 @@ The Trojan Map project provided a robust framework to simulate and solve complex
 **1. Algorithm Design**
 - Greedy algorithms (e.g., 2-opt for TSP) provide a balance between computational cost and solution quality.
 - Genetic algorithms are versatile but require careful parameter tuning (e.g., population size, mutation rate) to converge effectively.
+
 **2. Data Structures**
 - Efficient data structures such as priority queues, hash maps, and disjoint sets are critical for scalable solutions.
 - Graph representations (adjacency lists) are essential for managing relationships between nodes.
+
 **3. Real-World Constraints**
 - Handling real-world datasets highlighted the need for error checking (e.g., invalid IDs or empty inputs) and robustness in the implementation.
