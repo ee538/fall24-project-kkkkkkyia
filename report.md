@@ -207,13 +207,15 @@ bool CycleDetection(std::vector<double> &square);
 - Return true if a cycle is found; otherwise, return false.
 
 **Examples:**
-| Example | Nodes in Subgraph | Edges in Subgraph | Square Coordinates (left, right, upper, lower) | Cycle Detected | Runtime (ms) |
-|:-------:|:-----------------:|:-----------------:|:----------------------------------------------:|:--------------:|:------------:|
-| 1       | 5                 | 6                 | (-118.3, -118.2, 34.1, 34.0)                  | Yes            | 5            |
-| 2       | 8                 | 12                | (-118.4, -118.3, 34.2, 34.1)                  | No             | 8            |
-| 3       | 10                | 15                | (-118.2, -118.1, 34.1, 34.0)                  | Yes            | 10           |
-| 4       | 6                 | 9                 | (-118.5, -118.4, 34.3, 34.2)                  | No             | 6            |
-| 5       | 7                 | 11                | (-118.3, -118.2, 34.0, 33.9)                  | Yes            | 7            |
+| Nodes in Subgraph | Edges in Subgraph | Square Coordinates (left, right, upper, lower) | Cycle Detected | Runtime (ms) |
+|:-----------------:|:-----------------:|:----------------------------------------------:|:--------------:|:------------:|
+| 462               | 537               | (-118.254, -118.204, 34.0762, 34.0262)        | true           | 2            |
+| 7751              | 9303              | (-118.294, -118.244, 34.0724, 34.0224)        | true           | 46           |
+| 28                | 21                | (-118.248, -118.198, 34.0779, 34.0279)        | false          | 0            |
+| 4036              | 4907              | (-118.27, -118.22, 34.0596, 34.0096)          | true           | 25           |
+| 2933              | 3572              | (-118.269, -118.219, 34.0698, 34.0198)        | true           | 17           |
+| 3                 | 2                 | (-118.286, -118.236, 34.0951, 34.0451)        | false          | 0            |
+| 5694              | 6838              | (-118.283, -118.233, 34.0735, 34.0235)        | true           | 33           |
 
 **Result of the output**
 | Output | Map |
@@ -247,13 +249,15 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 - Return the sorted order of nodes if a valid topological sort exists.
 
 **Examples:**
-| Number of Nodes | Number of Dependencies | Runtime (ms) | Result                          |
-|:---------------:|:----------------------:|:------------:|:-------------------------------:|
-| 5               | 4                     | 1            | A -> B -> C -> D -> E           |
-| 6               | 5                     | 2            | F -> E -> D -> C -> B -> A      |
-| 7               | 6                     | 3            | X -> Y -> Z -> A -> B -> C -> D |
-| 8               | 10                    | 5            | M -> N -> O -> P -> Q -> R -> S |
-| 10              | 15                    | 7            | U -> V -> W -> X -> Y -> Z      |
+| Number of Nodes | Number of Dependencies | Runtime (ms) | Result                                                                                     |
+|:---------------:|:----------------------:|:------------:|:------------------------------------------------------------------------------------------:|
+| 5               | 4                      | 0.025417     | Stimson House -> Missionette Christian Academy -> Grand & 39th -> 23rd & Figueroa 1 -> Bevvy |
+| 9               | 21                     | 0            | No valid topological sort (cycle detected) |
+| 10              | 27                     | 0.108084     | Washington & Mariposa -> Felix Chevrolet -> Martin Luther King Junior & Broadway 1 -> Hoover & 24th -> Studio 423 -> Exposition & Normandie -> Just Ride LA -> Hill & 12th -> Washington & Broadway -> North Star Auditorium |
+| 5               | 7                      | 0.035416     | City Tacos -> Hoover & 32nd -> Vermont Elementary School -> Vernon Branch Los Angeles Public Library -> Henderson Community Center |
+| 6               | 9                      | 0            | No valid topological sort (cycle detected) |
+| 8               | 12                     | 0.051917     | Exposition & Halldale 1 -> Chevron 2 -> Adams & Arlington -> Figueroa & Adams -> USC Parking -> Vermont & 24th -> Twentyfirst Street Temple Church of God in Christ -> Eileen L Norris Cinema Theatre |
+| 7               | 11                     | 0.049375     | Figueroa Street & 23rd Street -> Western & Adams -> Pico & Hill -> Traveler -> Amazon Hub Locker -> Fruit and Candy -> Travelers Fountain |
 
 **Result of the output**
 ![](output_img/toposort_map.png)
@@ -300,14 +304,14 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 **Comparsion**
 | Number of Locations | Brute Force (ms) | Backtracking (ms) | 2-opt Heuristic (ms) |
 |:-------------------:|:----------------:|:-----------------:|:--------------------:|
-| 3                   | 10              | 5                 | 2                    |
-| 4                   | 30              | 12                | 6                    |
-| 5                   | 120             | 35                | 10                   |
-| 6                   | 720             | 100               | 25                   |
-| 7                   | 5040            | 400               | 50                   |
-| 8                   | 40320           | 1800              | 75                   |
-| 9                   | N/A             | 8000              | 100                  |
-| 10                  | N/A             | 35000             | 150                  |
+| 3                   | 0.067833        | 0.037042          | 0.037416             |
+| 4                   | 0.139667        | 0.097125          | 0.112083             |
+| 5                   | 0.4745          | 0.441875          | 0.175667             |
+| 6                   | 2.82138         | 1.69637           | 0.515875             |
+| 7                   | 18.8785         | 7.83967           | 1.19663              |
+| 8                   | 130.709         | 33.4908           | 0.643875             |
+| 9                   | 1074.9          | 216.496           | 2.93054              |
+| 10                  | 10668.9         | 1180.71           | 3.15054              |
 
 **Result of the output**
 | Output | Map |
@@ -390,18 +394,17 @@ std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::s
 - Store the results (true/false) for each query in a vector and return it.
 
 **Examples:**
-| **Tank Capacity (gallons)** | **Query Example (Source - Destination)** | **Result** | **Time (ms)** |
-|:---------------------------:|:---------------------------------------:|:----------:|:-------------:|
-| 0.5                         | Target - Ralphs                          | false      | 1.23          |
-| 0.8                         | Trader Joes - KFC                        | true       | 1.45          |
-| 0.2                         | KFC - Boba Time                          | false      | 1.68          |
-| 1.0                         | USC - Expo Park                          | true       | 1.02          |
-| 0.7                         | Trader Joes - Popeyes                    | true       | 1.36          |
-| 0.3                         | Boba Time - Ralphs                       | false      | 1.74          |
-| 1.5                         | Target - Trader Joes                     | true       | 0.89          |
-| 1.0                         | Expo Park - USC                          | true       | 1.01          |
-| 0.6                         | KFC - Popeyes                            | true       | 1.31          |
-| 0.9                         | Target - Leavey Library                  | true       | 1.28          |
+| **Tank Capacity (gallons)** | **Query Example (Source - Destination)**                      | **Result** | **Time (ms)** |
+|:---------------------------:|:-------------------------------------------------------------:|:----------:|:-------------:|
+| 6.80421                     | 11th & Maple - 11th & Santee                                  | true       | 208.019       |
+| 0.595003                    | Washington & Union 2 - Western & 10 Off-ramp                  | true       | 212.206       |
+| 0.353029                    | Adams & Grand - Hecuba Queen of Troy                          | false      | 201.745       |
+| 19.7479                     | Normandie & 36th 1 - Grand & 14th                             | true       | 233.136       |
+| 9.38119                     | Figueroa & Exposition - Adams Normandie Historic District     | true       | 202.415       |
+| 0.565006                    | Jefferson & Normandie - Best Donuts                           | false      | 204.948       |
+| 9.38119                     | Figueroa & Exposition - Adams Normandie Historic District     | true       | 202.415       |
+| 4.94633                     | Vermont & Washington - Exposition & Trousdale 1               | true       | 203.867       |
+| 13.5455                     | Smoke Shop - Popeyes                                          | true       | 203.548       |
 
 **Result of the output**
 ![](output_img/item12.png)
@@ -434,16 +437,16 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravelingTro
 - Return the shortest path found and its corresponding distance.
 
 **Comparsion**
-| Number of Locations | 3-opt Runtime (ms) | Best Distance Found (miles) |
-|:-------------------:|:------------------:|:---------------------------:|
-| 3                   | 2                  | 0.5                         |
-| 4                   | 5                  | 0.7                         |
-| 5                   | 12                 | 1.1                         |
-| 6                   | 28                 | 1.5                         |
-| 7                   | 60                 | 2.0                         |
-| 8                   | 120                | 2.5                         |
-| 9                   | 250                | 3.1                         |
-| 10                  | 500                | 3.8                         |
+| Number of Locations | 3-opt Runtime (ms) |
+|:-------------------:|:------------------:|
+| 3                   | 0.05975            |
+| 4                   | 0.228625           |
+| 5                   | 1.53704            |
+| 6                   | 3.55354            |
+| 7                   | 7.20237            |
+| 8                   | 11.1657            |
+| 9                   | 16.923             |
+| 10                  | 26.7845            |
 
 
 ### Genetic Algorithm
