@@ -4,6 +4,9 @@
 
 <center><h3>Team Member: Yuhui Wu(USC ID:6466358591)  Junfei Huang(USC ID:8035067981)</h3></center>
 
+# Overview
+The Trojan Map project is a comprehensive tool designed to model, analyze, and solve geographic problems in a localized area, using advanced algorithms for data retrieval, pathfinding, and optimization. The project provides functionality for analyzing a map’s geographic data, performing path planning, and solving related computational problems like the Traveling Salesperson Problem (TSP).
+
 # Member Functions & Variables
 | Name                                             | Description                                                  |
 | ------------------------------------------------ | ------------------------------------------------------------ |
@@ -89,34 +92,94 @@ int CalculateEditDistance(std::string name1, std::string name2);
 |  p   | 4          | 3   | 3   | 2   | 1   | 2   | 3   |
 |  h   | 5          | 4   | 4   | 3   | 2   | 1   | 2   |
 |  s   | 6          | 5   | 5   | 4   | 3   | 2   | 1   |
+
 **Result of the output**
 | Output | Map |
 | :---: | :---: |
 | ![](output_img/findthelocation_result.png) | ![](output_img/findthelocation_map.png)
 
 ## Phase 2
-# 3. Find all location categories
+### 3. Find all location categories
 ```c++
 std::vector<std::string> GetAllCategories();
 ```
 **Time Complexity:** O(N*M+K*logK), where N is the number of locations, M is the average number of categories per location and K is the total number of unique categories
 **Steps:**
-1. Input Dataset Traversal
-2. Unique Categories Extraction
-3. Conversion to Vector
+1. Input dataset traversal
+2. Unique categories extraction
+3. Conversion to vector
 4. Sorting
-5. Return the Result
+5. Return the result
 **Result of the output**
 ![](output_img/allcategories.png)
 
-# 4. Get all Locations of a Category
+### 4. Get all Locations of a Category
+```c++
+std::vector<std::string> GetAllLocationsFromCategory(std::string category);
+```
 **Time complexity:** O(N*M*L), where N is number of nodes, M is average number of attributes per node and L is average length of attribude string
 **Steps:**
-1. Convert Input Category to Lowercase
-2. Iterate through Dataset
-3. Match Attributes Case-Insensitively
+1. Convert input category to lowercase
+2. Iterate through dataset
+3. Match attributes case-insensitively
 4. Return ids of locations matched with the category
 **Result of the output**
+| Output | Map |
+| :---: | :---: |
+| ![](output_img/locationsincate_result.png) | ![](output_img/locationsincate_map.png)
+
+### 5. Get locations matching regular expression
+```c++
+std::vector<std::string> GetLocationRegex(std::regex location);
+```
+**Time complexity:** O(N*L), where N is number of nodes and L is average length of attribude string
+**Steps:**
+1. Validation of the regular expression
+2. Dataset iteration
+3. Regex matching
+- Checks if the location’s name matches the given regular expression
+- If a match is found, the location’s id is added to the result vector
+4. Return the result vector containing the IDs of locations whose names matched the regular expression
+**Result of the output**
+![](output_img/regularexpression.png)
+
+### 6. Calculate Shortest Path
+### 6.1. Dijkstra's Algorithm
+```c++
+std::vector<std::string> CalculateShortestPath_Dijkstra(std::string &location1_name,
+                                               std::string &location2_name);
+```
+**Time complexity:** O((N+E)*logN), where N is the number of nodes and E is the number of edges
+**Steps:**
+1. Initialization
+- Distances are set to infinity
+- A priority queue is used to store nodes and their current known distances
+2. Processing
+- For the node with the smallest distance (top of the queue), its neighbors are “relaxed”
+3. Termination
+- When the end node is processed, the shortest path has been determined
+- Starting from the target node, backtrack using the parent map to reconstruct the path
+### 6.2. Bellman Ford Algorithm
+```c++
+std::vector<std::string> CalculateShortestPath_Bellman_Ford(std::string &location1_name,
+                                               std::string &location2_name);
+```
+**Time complexity:**
+- Bellman Ford: O(N*E), where N is the number of nodes and E is the number of edges
+- Bellman Ford Optimized: O(k*E), k<=n-1, where E is the number of edges
+**Steps:**
+1. Initialization
+- Distances are initialized to infinity, except for the start node
+2. Edge Relaxation
+3. Early Termination
+- If no updates occur during an iteration, the algorithm terminates early
+4. Path Reconstruction
+- Backtrack from the target node using the parent map
+**Result of the output**
+| Output | Map |
+| :---: | :---: |
+| ![](output_img/calculatepath_result.png) | ![](output_img/calculatepath_map.png)
+
 ### 7. Cycle Detection​
 ```c++
 bool CycleDetection(std::vector<double> &square);
@@ -152,6 +215,11 @@ bool CycleDetection(std::vector<double> &square);
 | 4       | 6                 | 9                 | (-118.5, -118.4, 34.3, 34.2)                  | No             | 6            |
 | 5       | 7                 | 11                | (-118.3, -118.2, 34.0, 33.9)                  | Yes            | 7            |
 
+**Result of the output**
+| Output | Map |
+| :---: | :---: |
+| ![](output_img/cycledetection_result.png) | ![](output_img/cycledetection_map.png)
+
 ### 8. Topological Sort​
 ```c++
 std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_names,
@@ -186,6 +254,10 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 | 7               | 6                     | 3            | X -> Y -> Z -> A -> B -> C -> D |
 | 8               | 10                    | 5            | M -> N -> O -> P -> Q -> R -> S |
 | 10              | 15                    | 7            | U -> V -> W -> X -> Y -> Z      |
+
+**Result of the output**
+![](output_img/toposort_map.png)
+
 
 ## Phase 3
 ### 9. Traveling salesman problem
@@ -237,6 +309,10 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 | 9                   | N/A             | 8000              | 100                  |
 | 10                  | N/A             | 35000             | 150                  |
 
+**Result of the output**
+| Output | Map |
+| :---: | :---: |
+| ![](output_img/TSP_result.png) | ![](output_img/TSP_map.png)
 
 ### 10. Find Nearby
 ```c++
@@ -259,6 +335,11 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
 - Return the top k closest locations or fewer if fewer than k valid locations exist.
 5. Return Results
 - Return the vector of IDs for the top k closest locations.
+
+**Result of the output**
+| Output | Map |
+| :---: | :---: |
+| ![](output_img/nearby_result.png) | ![](output_img/nearby_map.png)
 
 ### 11. Find Path to Visit All Places
 ```c++
@@ -285,6 +366,9 @@ std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &locatio
 6. Merge Paths
 - Avoid duplicate nodes by removing the starting node from intermediate paths.
 5. Return the Shortest Path
+
+**Result of the output**
+![](output_img/item11.png)
 
 ### 12. Check Exist of Path with Constrain​
 ```c++
@@ -319,6 +403,8 @@ std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::s
 | 0.6                         | KFC - Popeyes                            | true       | 1.31          |
 | 0.9                         | Target - Leavey Library                  | true       | 1.28          |
 
+**Result of the output**
+![](output_img/item12.png)
 
 ## Extra Credit 
 ### 3-opt
