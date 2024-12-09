@@ -39,6 +39,7 @@ The Trojan Map project is a comprehensive tool designed to model, analyze, and s
 # Detailed Implimentation
 ## Phase 1
 ### 1. Autocomplete
+<h3>Autocomplete</h3> <div id="autocomplete"></div>
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
