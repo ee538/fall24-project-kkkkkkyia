@@ -268,19 +268,19 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 
 ## Phase 3
 ### 9. Traveling salesman problem
-- Brute-force (i.e. generating all permutations, and returning the minimum)
+### 9.1. Brute-force (i.e. generating all permutations, and returning the minimum)
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_Brute_force(
       std::vector<std::string> location_ids);
 ```
 **Time complexity:** O(n!), where n is the number of locations.
-- Brute-force enhanced with early backtracking
+### 9.2. Brute-force enhanced with early backtracking
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_Backtracking(
       std::vector<std::string> location_ids);
 ```
 **Time complexity:** O(n!) in the worst case, but backtracking prunes invalid paths, making it faster than plain brute force for most inputs.
-- 2-opt Heuristic
+### 9.3. 2-opt Heuristic
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
       std::vector<std::string> location_ids);
