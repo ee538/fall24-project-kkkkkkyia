@@ -40,6 +40,7 @@ The Trojan Map project is a comprehensive tool designed to model, analyze, and s
 ## Phase 1
 ### 1. Autocomplete
 <div id="autocomplete"></div>
+
 ```c++
 std::vector<std::string> Autocomplete(std::string name);
 ```
@@ -55,6 +56,8 @@ Time complexity: O(m*n), where n is the number of nodes in the map and m is the 
 
 ### 2. Find the location
 ### 2-1. Get Position
+<div id="getposition"></div>
+
 ```c++
 std::pair<double, double> GetPosition(std::string name);
 ```
@@ -67,6 +70,8 @@ std::pair<double, double> GetPosition(std::string name);
 4. Return the results
 
 ### 2-2. Calculate Edit Distance
+<div id="calculateeditdistance"></div>
+
 ```c++
 int CalculateEditDistance(std::string name1, std::string name2);
 ```
@@ -103,6 +108,8 @@ int CalculateEditDistance(std::string name1, std::string name2);
 
 ## Phase 2
 ### 3. Find all location categories
+<div id="getallcategories"></div>
+
 ```c++
 std::vector<std::string> GetAllCategories();
 ```
@@ -118,6 +125,8 @@ std::vector<std::string> GetAllCategories();
 ![](output_img/allcategories.png)
 
 ### 4. Get all Locations of a Category
+<div id="getalllocations"></div>
+
 ```c++
 std::vector<std::string> GetAllLocationsFromCategory(std::string category);
 ```
@@ -134,6 +143,8 @@ std::vector<std::string> GetAllLocationsFromCategory(std::string category);
 | ![](output_img/locationsincate_result.png) | ![](output_img/locationsincate_map.png)
 
 ### 5. Get locations matching regular expression
+<div id="getlocationregax"></div>
+
 ```c++
 std::vector<std::string> GetLocationRegex(std::regex location);
 ```
@@ -151,6 +162,8 @@ std::vector<std::string> GetLocationRegex(std::regex location);
 
 ### 6. Calculate Shortest Path
 ### 6.1. Dijkstra's Algorithm
+<div id="dijkstra"></div>
+
 ```c++
 std::vector<std::string> CalculateShortestPath_Dijkstra(std::string &location1_name,
                                                std::string &location2_name);
@@ -166,6 +179,8 @@ std::vector<std::string> CalculateShortestPath_Dijkstra(std::string &location1_n
 - When the end node is processed, the shortest path has been determined
 - Starting from the target node, backtrack using the parent map to reconstruct the path
 ### 6.2. Bellman Ford Algorithm
+<div id="bellman"></div>
+
 ```c++
 std::vector<std::string> CalculateShortestPath_Bellman_Ford(std::string &location1_name,
                                                std::string &location2_name);
@@ -188,6 +203,8 @@ std::vector<std::string> CalculateShortestPath_Bellman_Ford(std::string &locatio
 | ![](output_img/calculatepath_result.png) | ![](output_img/calculatepath_map.png)
 
 ### 7. Cycle Detection​
+<div id="cycledetection"></div>
+
 ```c++
 bool CycleDetection(std::vector<double> &square);
 ```
@@ -230,6 +247,8 @@ bool CycleDetection(std::vector<double> &square);
 | ![](output_img/cycledetection_result.png) | ![](output_img/cycledetection_map.png)
 
 ### 8. Topological Sort​
+<div id="topo"></div>
+
 ```c++
 std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_names,
                                             std::vector<std::vector<std::string>> &dependencies);
@@ -273,18 +292,24 @@ std::vector<std::string> DeliveringTrojan(std::vector<std::string> &location_nam
 ## Phase 3
 ### 9. Traveling salesman problem
 ### 9.1. Brute-force (i.e. generating all permutations, and returning the minimum)
+<div id="bruteforce"></div>
+
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_Brute_force(
       std::vector<std::string> location_ids);
 ```
 **Time complexity:** O(n!), where n is the number of locations.
 ### 9.2. Brute-force enhanced with early backtracking
+<div id="backtracking"></div>
+
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_Backtracking(
       std::vector<std::string> location_ids);
 ```
 **Time complexity:** O(n!) in the worst case, but backtracking prunes invalid paths, making it faster than plain brute force for most inputs.
 ### 9.3. 2-opt Heuristic
+<div id="2opt"></div>
+
 ```c++
 std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
       std::vector<std::string> location_ids);
@@ -326,6 +351,8 @@ std::pair<double, std::vector<std::vector<std::string>>> TravelingTrojan_2opt(
 | ![](output_img/TSP_result.png) | ![](output_img/TSP_map.png)
 
 ### 10. Find Nearby
+<div id="findnearby"></div>
+
 ```c++
 std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::string name, double r, int k);
 ```
@@ -353,6 +380,8 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
 | ![](output_img/nearby_result.png) | ![](output_img/nearby_map.png)
 
 ### 11. Find Path to Visit All Places
+<div id="trojanpath"></div>
+
 ```c++
 std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &location_names)
 ```
@@ -382,6 +411,8 @@ std::vector<std::string> TrojanMap::TrojanPath(std::vector<std::string> &locatio
 ![](output_img/item11.png)
 
 ### 12. Check Exist of Path with Constrain​
+<div id="queries"></div>
+
 ```c++
 std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::string>>> &q);
 ```
